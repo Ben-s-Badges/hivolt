@@ -13,7 +13,7 @@ I suggest using mpremote to copy everything over:
 
 ```
 cd src
-mpremote fs cp -R . :/
+mpremote fs cp --recursive . :
 ```
 
 Visuals are provided by plugins, which sit within the plugins/ folder on the device. They're pretty simplistic, as you can see. They have a refresh interval which is used to determine how often
