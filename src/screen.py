@@ -83,7 +83,7 @@ class screenDriver:
         out(pins, 1).side(0)			# Clock ROW_DATA out & ROW_CLK low
         jmp(y_dec, 'rowloop1').side(1) 	# Set ROW_CLK high
 
-        set(pins, pGLOBAL_nCLR + pRCLK)
+        set(pins, pGLOBAL_nCLR + pRCLK).delay(1)
         set(pins, pGLOBAL_nCLR + pCOL_CLK)
         
         set(y, 27)						# Clock out 56 bits, 2 at a time
@@ -93,7 +93,7 @@ class screenDriver:
         out(pins, 1).side(0)			# Clock ROW_DATA out & ROW_CLK low
         jmp(y_dec, 'rowloop2').side(1) 	# Set ROW_CLK high
         
-        set(pins, pGLOBAL_nCLR + pRCLK)
+        set(pins, pGLOBAL_nCLR + pRCLK).delay(1)
         set(pins, pGLOBAL_nCLR + pCOL_CLK)
         
         jmp(x_dec, 'colloop')
@@ -106,7 +106,7 @@ class screenDriver:
         out(pins, 1).side(0)			# Clock ROW_DATA out & ROW_CLK low
         jmp(y_dec, 'rowloop3').side(1) 	# Set ROW_CLK high
 
-        set(pins, pGLOBAL_nCLR + pRCLK)
+        set(pins, pGLOBAL_nCLR + pRCLK).delay(1)
         set(pins, pGLOBAL_nCLR + pCOL_CLK)
 
         set(y, 27)						# Clock out 56 bits, 2 at a time
@@ -116,7 +116,7 @@ class screenDriver:
         out(pins, 1).side(0)			# Clock ROW_DATA out & ROW_CLK low
         jmp(y_dec, 'rowloop4').side(1) 	# Set ROW_CLK high
 
-        set(pins, pGLOBAL_nCLR + pCOL_DATA + pRCLK)
+        set(pins, pGLOBAL_nCLR + pCOL_DATA + pRCLK).delay(1)
         set(pins, pGLOBAL_nCLR + pCOL_DATA + pCOL_CLK)
 
         wrap()
@@ -195,6 +195,7 @@ class screenDriver:
             address = (address & 0xffc) | (3-(address&3))
             rp[address] = sp[x] ^ 0xff       
     
+    @micropython.native
     def flushScreen(self, screen):
         # Load new data into idle screen buffer, ie the next one
         destination = (self._rawscreen_refreshfrom + 1) % 3
